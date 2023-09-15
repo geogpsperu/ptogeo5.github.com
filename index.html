@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <style>
+        #map {
+            width: 993px;
+            height: 706px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/RedGeodesicaSEDAPAL_1.js"></script>
+        <script src="data/PuntoscontrolCOFOPRI_2.js"></script>
+        <script src="data/BMIGN_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-12.249636922948142,-76.92991826413393],[-12.129916878247425,-76.75750454966644]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 22
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_RedGeodesicaSEDAPAL_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CODIGO</th>\
+                        <td>' + (feature.properties['CODIGO'] !== null ? autolinker.link(feature.properties['CODIGO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DIST</th>\
+                        <td>' + (feature.properties['DIST'] !== null ? autolinker.link(feature.properties['DIST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UBICACION</th>\
+                        <td>' + (feature.properties['UBICACION'] !== null ? autolinker.link(feature.properties['UBICACION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COORD_E</th>\
+                        <td>' + (feature.properties['COORD_E'] !== null ? autolinker.link(feature.properties['COORD_E'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COORD_N</th>\
+                        <td>' + (feature.properties['COORD_N'] !== null ? autolinker.link(feature.properties['COORD_N'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LATITUD</th>\
+                        <td>' + (feature.properties['LATITUD'] !== null ? autolinker.link(feature.properties['LATITUD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LONGITUD</th>\
+                        <td>' + (feature.properties['LONG_'] !== null ? autolinker.link(feature.properties['LONG_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ALT_ELIPS</th>\
+                        <td>' + (feature.properties['ALT_ELIPS'] !== null ? autolinker.link(feature.properties['ALT_ELIPS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ORDEN</th>\
+                        <td>' + (feature.properties['ORDEN'] !== null ? autolinker.link(feature.properties['ORDEN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RedGeodesicaSEDAPAL_1_0(feature) {
+            switch(String(feature.properties['ORDEN'])) {
+                case 'ERP -':
+                    return {
+                pane: 'pane_RedGeodesicaSEDAPAL_1',
+                interactive: true,
+            }
+                    break;
+                case 'B':
+                    return {
+                pane: 'pane_RedGeodesicaSEDAPAL_1',
+                interactive: true,
+            }
+                    break;
+                case 'C':
+                    return {
+                pane: 'pane_RedGeodesicaSEDAPAL_1',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_RedGeodesicaSEDAPAL_1');
+        map.getPane('pane_RedGeodesicaSEDAPAL_1').style.zIndex = 401;
+        map.getPane('pane_RedGeodesicaSEDAPAL_1').style['mix-blend-mode'] = 'normal';
+        var layer_RedGeodesicaSEDAPAL_1 = new L.geoJson(json_RedGeodesicaSEDAPAL_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RedGeodesicaSEDAPAL_1',
+            layerName: 'layer_RedGeodesicaSEDAPAL_1',
+            pane: 'pane_RedGeodesicaSEDAPAL_1',
+            onEachFeature: pop_RedGeodesicaSEDAPAL_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_RedGeodesicaSEDAPAL_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_RedGeodesicaSEDAPAL_1);
+        map.addLayer(layer_RedGeodesicaSEDAPAL_1);
+        function pop_PuntoscontrolCOFOPRI_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CODIGO</th>\
+                        <td>' + (feature.properties['CODIGO'] !== null ? autolinker.link(feature.properties['CODIGO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESTE</th>\
+                        <td>' + (feature.properties['ESTE'] !== null ? autolinker.link(feature.properties['ESTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NORTE</th>\
+                        <td>' + (feature.properties['NORTE'] !== null ? autolinker.link(feature.properties['NORTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ALTURA_ORT</th>\
+                        <td>' + (feature.properties['ALTURA_ORT'] !== null ? autolinker.link(feature.properties['ALTURA_ORT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LATITUD</th>\
+                        <td>' + (feature.properties['LATITUD'] !== null ? autolinker.link(feature.properties['LATITUD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LONGITUD</th>\
+                        <td>' + (feature.properties['LONGITUD'] !== null ? autolinker.link(feature.properties['LONGITUD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ALTURA_ELI</th>\
+                        <td>' + (feature.properties['ALTURA_ELI'] !== null ? autolinker.link(feature.properties['ALTURA_ELI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FACTOR_ESC</th>\
+                        <td>' + (feature.properties['FACTOR_ESC'] !== null ? autolinker.link(feature.properties['FACTOR_ESC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA</th>\
+                        <td>' + (feature.properties['FECHA'] !== null ? autolinker.link(feature.properties['FECHA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LOCALIDAD</th>\
+                        <td>' + (feature.properties['LOCALIDAD'] !== null ? autolinker.link(feature.properties['LOCALIDAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DISTRITO</th>\
+                        <td>' + (feature.properties['DISTRITO'] !== null ? autolinker.link(feature.properties['DISTRITO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DATUM</th>\
+                        <td>' + (feature.properties['DATUM'] !== null ? autolinker.link(feature.properties['DATUM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ORDEN</th>\
+                        <td>' + (feature.properties['ORDEN'] !== null ? autolinker.link(feature.properties['ORDEN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PuntoscontrolCOFOPRI_2_0() {
+            return {
+                pane: 'pane_PuntoscontrolCOFOPRI_2',
+                radius: 28.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,64,254,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PuntoscontrolCOFOPRI_2');
+        map.getPane('pane_PuntoscontrolCOFOPRI_2').style.zIndex = 402;
+        map.getPane('pane_PuntoscontrolCOFOPRI_2').style['mix-blend-mode'] = 'normal';
+        var layer_PuntoscontrolCOFOPRI_2 = new L.geoJson(json_PuntoscontrolCOFOPRI_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PuntoscontrolCOFOPRI_2',
+            layerName: 'layer_PuntoscontrolCOFOPRI_2',
+            pane: 'pane_PuntoscontrolCOFOPRI_2',
+            onEachFeature: pop_PuntoscontrolCOFOPRI_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_PuntoscontrolCOFOPRI_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PuntoscontrolCOFOPRI_2);
+        map.addLayer(layer_PuntoscontrolCOFOPRI_2);
+        function pop_BMIGN_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CODIGO</th>\
+                        <td>' + (feature.properties['CODIGO'] !== null ? autolinker.link(feature.properties['CODIGO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LINK</th>\
+                        <td>' + (feature.properties['LINK'] !== null ? autolinker.link(feature.properties['LINK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMG</th>\
+                        <td>' + (feature.properties['IMG'] !== null ? '<img src="images/' + String(feature.properties['IMG']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BMIGN_3_0() {
+            return {
+                pane: 'pane_BMIGN_3',
+                radius: 10.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,175,1,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BMIGN_3');
+        map.getPane('pane_BMIGN_3').style.zIndex = 403;
+        map.getPane('pane_BMIGN_3').style['mix-blend-mode'] = 'normal';
+        var layer_BMIGN_3 = new L.geoJson(json_BMIGN_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BMIGN_3',
+            layerName: 'layer_BMIGN_3',
+            pane: 'pane_BMIGN_3',
+            onEachFeature: pop_BMIGN_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_BMIGN_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BMIGN_3);
+        map.addLayer(layer_BMIGN_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/BMIGN_3.png" /> BM - IGN': layer_BMIGN_3,'<img src="legend/PuntoscontrolCOFOPRI_2.png" /> Puntos control - COFOPRI': layer_PuntoscontrolCOFOPRI_2,'Red Geodesica - SEDAPAL<br /><table><tr><td style="text-align: center;"><img src="legend/RedGeodesicaSEDAPAL_1_SED10.png" /></td><td>SED1</td></tr><tr><td style="text-align: center;"><img src="legend/RedGeodesicaSEDAPAL_1_B1.png" /></td><td>B</td></tr><tr><td style="text-align: center;"><img src="legend/RedGeodesicaSEDAPAL_1_C2.png" /></td><td>C</td></tr></table>': layer_RedGeodesicaSEDAPAL_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_BMIGN_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['CODIGO'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['CODIGO']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BMIGN_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"ALTURA_ELI": "real","ALTURA_ORT": "real","DATUM": "str","UBICACION": "str","ORDEN": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_BMIGN_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['CODIGO'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['CODIGO']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BMIGN_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_ALTURA_ELI = document.createElement("div");
+            div_ALTURA_ELI.id = "div_ALTURA_ELI";
+            div_ALTURA_ELI.className = "slider";
+            document.getElementById("menu").appendChild(div_ALTURA_ELI);
+            var lab_ALTURA_ELI = document.createElement('div');
+            lab_ALTURA_ELI.innerHTML  = 'ALTURA_ELI: <span id="val_ALTURA_ELI"></span>';
+            lab_ALTURA_ELI.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_ALTURA_ELI);
+            var reset_ALTURA_ELI = document.createElement('div');
+            reset_ALTURA_ELI.innerHTML = 'clear filter';
+            reset_ALTURA_ELI.className = 'filterlabel';
+            lab_ALTURA_ELI.className = 'filterlabel';
+            reset_ALTURA_ELI.onclick = function() {
+                sel_ALTURA_ELI.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_ALTURA_ELI);
+            var sel_ALTURA_ELI = document.getElementById('div_ALTURA_ELI');
+            noUiSlider.create(sel_ALTURA_ELI, {
+                connect: true,
+                start: [14.114, 4128.526],
+                range: {
+                min: 14.114,
+                max: 4128.526
+                }
+            });
+            sel_ALTURA_ELI.noUiSlider.on('update', function (values) {
+            val_ALTURA_ELI = document.getElementById('val_ALTURA_ELI');
+            val_ALTURA_ELI.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_ALTURA_ORT = document.createElement("div");
+            div_ALTURA_ORT.id = "div_ALTURA_ORT";
+            div_ALTURA_ORT.className = "slider";
+            document.getElementById("menu").appendChild(div_ALTURA_ORT);
+            var lab_ALTURA_ORT = document.createElement('div');
+            lab_ALTURA_ORT.innerHTML  = 'ALTURA_ORT: <span id="val_ALTURA_ORT"></span>';
+            lab_ALTURA_ORT.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_ALTURA_ORT);
+            var reset_ALTURA_ORT = document.createElement('div');
+            reset_ALTURA_ORT.innerHTML = 'clear filter';
+            reset_ALTURA_ORT.className = 'filterlabel';
+            lab_ALTURA_ORT.className = 'filterlabel';
+            reset_ALTURA_ORT.onclick = function() {
+                sel_ALTURA_ORT.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_ALTURA_ORT);
+            var sel_ALTURA_ORT = document.getElementById('div_ALTURA_ORT');
+            noUiSlider.create(sel_ALTURA_ORT, {
+                connect: true,
+                start: [164.916, 3963.6220000000003],
+                range: {
+                min: 164.916,
+                max: 3963.6220000000003
+                }
+            });
+            sel_ALTURA_ORT.noUiSlider.on('update', function (values) {
+            val_ALTURA_ORT = document.getElementById('val_ALTURA_ORT');
+            val_ALTURA_ORT.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_DATUM = document.createElement('div');
+            div_DATUM.id = "div_DATUM";
+            div_DATUM.className= "filterselect";
+            document.getElementById("menu").appendChild(div_DATUM);
+            sel_DATUM = document.createElement('select');
+            sel_DATUM.multiple = true;
+            sel_DATUM.size = 1;
+            sel_DATUM.id = "sel_DATUM";
+            var DATUM_options_str = "<option value='' unselected></option>";
+            sel_DATUM.onchange = function(){filterFunc()};
+            DATUM_options_str  += '<option value="WGS84">WGS84</option>';
+            sel_DATUM.innerHTML = DATUM_options_str;
+            div_DATUM.appendChild(sel_DATUM);
+            var lab_DATUM = document.createElement('div');
+            lab_DATUM.innerHTML = 'DATUM';
+            lab_DATUM.className = 'filterlabel';
+            div_DATUM.appendChild(lab_DATUM);
+            var reset_DATUM = document.createElement('div');
+            reset_DATUM.innerHTML = 'clear filter';
+            reset_DATUM.className = 'filterlabel';
+            reset_DATUM.onclick = function() {
+                var options = document.getElementById("sel_DATUM").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_DATUM.appendChild(reset_DATUM);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_UBICACION = document.createElement('div');
+            div_UBICACION.id = "div_UBICACION";
+            div_UBICACION.className= "filterselect";
+            document.getElementById("menu").appendChild(div_UBICACION);
+            sel_UBICACION = document.createElement('select');
+            sel_UBICACION.multiple = true;
+            sel_UBICACION.size = 10;
+            sel_UBICACION.id = "sel_UBICACION";
+            var UBICACION_options_str = "<option value='' unselected></option>";
+            sel_UBICACION.onchange = function(){filterFunc()};
+            UBICACION_options_str  += '<option value="NULL">NULL</option>';
+            UBICACION_options_str  += '<option value="A 130 MTS. DE LOZA DEPORTIVA DIRECCIÓN SURESTE, COLINDANTE CON A.H. VIRGEN DE FÁTIMA CERCA RESERVORIO.">A 130 MTS. DE LOZA DEPORTIVA DIRECCIÓN SURESTE, COLINDANTE CON A.H. VIRGEN DE FÁTIMA CERCA RESERVORIO.</option>';
+            UBICACION_options_str  += '<option value="A.H. ALFONSO UGARTE A 5MTS. DE LA LOZA DEPORTIVA.">A.H. ALFONSO UGARTE A 5MTS. DE LA LOZA DEPORTIVA.</option>';
+            UBICACION_options_str  += '<option value="A.H. CERRO OQUENDO-ADV MIRAMAR, CERCA RESERVORIO SEDAPAL">A.H. CERRO OQUENDO-ADV MIRAMAR, CERCA RESERVORIO SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="A.H. EL MIRADOR,  40 MTS HACIA DEBAJO DE LA LOZA DEPORTIVA.">A.H. EL MIRADOR,  40 MTS HACIA DEBAJO DE LA LOZA DEPORTIVA.</option>';
+            UBICACION_options_str  += '<option value="A.H. EL VALLECITO DE LA ERA">A.H. EL VALLECITO DE LA ERA</option>';
+            UBICACION_options_str  += '<option value="A.H. LUIS FELIPE DE LAS CASAS CERCA RIO SUCO FINAL CALLE 9 Y 10">A.H. LUIS FELIPE DE LAS CASAS CERCA RIO SUCO FINAL CALLE 9 Y 10</option>';
+            UBICACION_options_str  += '<option value="A.H. Nadine Heredia, MZ. I-11, 5TA ETAPA, COSTADO AA.HH. LOS ALTOS DE MARAVILLA.">A.H. Nadine Heredia, MZ. I-11, 5TA ETAPA, COSTADO AA.HH. LOS ALTOS DE MARAVILLA.</option>';
+            UBICACION_options_str  += '<option value="A.H. PILAR NORES DE GARCIA Y A.H. LA ENCANTADA 2 ETAPA AV. JOSE CARLOS MARIATEGUI COLINDATE MZ. A-11">A.H. PILAR NORES DE GARCIA Y A.H. LA ENCANTADA 2 ETAPA AV. JOSE CARLOS MARIATEGUI COLINDATE MZ. A-11</option>';
+            UBICACION_options_str  += '<option value="AA.HH. COLLANAC, HUERTOS DE MANCHAY PARCELA 1 ALEDAÑO RESERVORIO SEDAPAL.">AA.HH. COLLANAC, HUERTOS DE MANCHAY PARCELA 1 ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="AA.HH. CORAZON DE JESUS AV.JAIME ZUBIETA">AA.HH. CORAZON DE JESUS AV.JAIME ZUBIETA</option>';
+            UBICACION_options_str  += '<option value="AA.HH. JOSE CARLOS MARIATEGUI 5TA (PARADERO ROMA) FRENTE MZ. UG-C  HA 5 MTS. RESERVORIO SEDAPAL.">AA.HH. JOSE CARLOS MARIATEGUI 5TA (PARADERO ROMA) FRENTE MZ. UG-C  HA 5 MTS. RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="AA.HH. LAS LADERAS DEL CHILLON, ZONA &apos;S&apos;, 130 MTS. CALLE 29 a 10 MTS. RESERVORIO SEDAPAL">AA.HH. LAS LADERAS DEL CHILLON, ZONA &apos;S&apos;, 130 MTS. CALLE 29 a 10 MTS. RESERVORIO SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="AA.HH. SANTA MARIAPARTE ALTA DEL PASAJE 4 MZ. &apos;C&apos;">AA.HH. SANTA MARIAPARTE ALTA DEL PASAJE 4 MZ. &apos;C&apos;</option>';
+            UBICACION_options_str  += '<option value="AA.HH. SANTA ROSA DE LIMA, CERRO LA REGLA, PROXIMO A RESERVORIO.">AA.HH. SANTA ROSA DE LIMA, CERRO LA REGLA, PROXIMO A RESERVORIO.</option>';
+            UBICACION_options_str  += '<option value="AA.HH. SANTA ROSA DE MANCHAY AV. VICTOR MALASQUEZ KM 9.5">AA.HH. SANTA ROSA DE MANCHAY AV. VICTOR MALASQUEZ KM 9.5</option>';
+            UBICACION_options_str  += '<option value="AA.HH. SECTOR I Y II ANGAMOS - AMPLIACION ANGAMOS COSTA AZUL ALEDAÑO RESERVORIO">AA.HH. SECTOR I Y II ANGAMOS - AMPLIACION ANGAMOS COSTA AZUL ALEDAÑO RESERVORIO</option>';
+            UBICACION_options_str  += '<option value="AA.HH. VILLA CHICA MZ. F-1, ALEDAÑO RESERVORIO SEDAPAL">AA.HH. VILLA CHICA MZ. F-1, ALEDAÑO RESERVORIO SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="AA.HH. VIRGEN DE LOURDES (PARQUE)">AA.HH. VIRGEN DE LOURDES (PARQUE)</option>';
+            UBICACION_options_str  += '<option value="AEROPUERTO INTERNACIONAL JORGE CHAVEZ ANTES DE LA AV. JAPON BOCA NEGRA">AEROPUERTO INTERNACIONAL JORGE CHAVEZ ANTES DE LA AV. JAPON BOCA NEGRA</option>';
+            UBICACION_options_str  += '<option value="AGENCIA MUNICIPAL 02 ANCÓN, ESQUINA NORTE DE LA LOZA DE LA URB. VILLA ANCÓN.">AGENCIA MUNICIPAL 02 ANCÓN, ESQUINA NORTE DE LA LOZA DE LA URB. VILLA ANCÓN.</option>';
+            UBICACION_options_str  += '<option value="AGRUP. FAMILIAR 14 DE FEBRERO, MZ.&apos;A&apos; FRENTE A LA LOZA DEPORTIVA">AGRUP. FAMILIAR 14 DE FEBRERO, MZ.&apos;A&apos; FRENTE A LA LOZA DEPORTIVA</option>';
+            UBICACION_options_str  += '<option value="AL ESTE DE PISTA DE ATERRIZAJE DEL AERÓDROMO LIB MANDY METROPOLITANO.">AL ESTE DE PISTA DE ATERRIZAJE DEL AERÓDROMO LIB MANDY METROPOLITANO.</option>';
+            UBICACION_options_str  += '<option value="ALEDAÑO A IE. DIVINO NIÑO DEL MILAGRO - SANTA ROSA, LADO DERECHO EDIFICACION EN ASOC. VIVIENDA LA ARBOLEDA.">ALEDAÑO A IE. DIVINO NIÑO DEL MILAGRO - SANTA ROSA, LADO DERECHO EDIFICACION EN ASOC. VIVIENDA LA ARBOLEDA.</option>';
+            UBICACION_options_str  += '<option value="ALT CUADRA 32 DE AV. PÉRU _PARQUE RICARDO PALMA">ALT CUADRA 32 DE AV. PÉRU _PARQUE RICARDO PALMA</option>';
+            UBICACION_options_str  += '<option value="ALT. KM.26 CARRETERA CANTA, PARALELA AL RIO CHILLON.">ALT. KM.26 CARRETERA CANTA, PARALELA AL RIO CHILLON.</option>';
+            UBICACION_options_str  += '<option value="ANTIGUA PANAMERICANA SUR ALT KM 37.20 NVO. LURIN CALLE 8 Y 9.">ANTIGUA PANAMERICANA SUR ALT KM 37.20 NVO. LURIN CALLE 8 Y 9.</option>';
+            UBICACION_options_str  += '<option value="ASOC. HIJOS DE APURIMAC ALT MZ.A LOTE 1">ASOC. HIJOS DE APURIMAC ALT MZ.A LOTE 1</option>';
+            UBICACION_options_str  += '<option value="ASOC. VIVIENDA ANTONIO RAYMONDI, CALLE 1 MZ B-16, LOS SUREÑOS, ALT. PARADERO ROSA LUZ EN PANAMERICANA NORTE.">ASOC. VIVIENDA ANTONIO RAYMONDI, CALLE 1 MZ B-16, LOS SUREÑOS, ALT. PARADERO ROSA LUZ EN PANAMERICANA NORTE.</option>';
+            UBICACION_options_str  += '<option value="ASOC.VIVIENDA EL BALCON, ALEDAÑO RESERVORIO SEDAPAL.">ASOC.VIVIENDA EL BALCON, ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="ASOC.VIVIENDA SANTA ROSA, PJE SANTA ROSA FRENTE Z-8 ALTURA KM 17 AV. PACHACUTEC.">ASOC.VIVIENDA SANTA ROSA, PJE SANTA ROSA FRENTE Z-8 ALTURA KM 17 AV. PACHACUTEC.</option>';
+            UBICACION_options_str  += '<option value="AV. 5, ALEDAÑO AL RESERVORIO SEDAPAL.">AV. 5, ALEDAÑO AL RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="AV. ALAMEDA EL TRIANGULO Y AV. LAS GARZAS REALES.">AV. ALAMEDA EL TRIANGULO Y AV. LAS GARZAS REALES.</option>';
+            UBICACION_options_str  += '<option value="AV. ANTÚNEZ DE MAYOLO, ALT. CENTRO COMERCIAL PLAZA VEA, JR. ARIES MZ. I -12.">AV. ANTÚNEZ DE MAYOLO, ALT. CENTRO COMERCIAL PLAZA VEA, JR. ARIES MZ. I -12.</option>';
+            UBICACION_options_str  += '<option value="AV. ARMENDARIZ ANTES INTERCEPCION AV.REDUCTO 50 MTS CURVA DE INGRESO A QUEBRADA ARMENDARIZ.">AV. ARMENDARIZ ANTES INTERCEPCION AV.REDUCTO 50 MTS CURVA DE INGRESO A QUEBRADA ARMENDARIZ.</option>';
+            UBICACION_options_str  += '<option value="AV. CHILLON, PASANDO AV. CENTRAL ALEDAÑO RESERVORIO SEDAPAL.">AV. CHILLON, PASANDO AV. CENTRAL ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="AV. JAVIER PRADO CRUCE CON CALLE BERLIN">AV. JAVIER PRADO CRUCE CON CALLE BERLIN</option>';
+            UBICACION_options_str  += '<option value="AV. JORGE CHAVEZ KM.38 CARRETERA CENTRAL FRENTE MZ. M-8">AV. JORGE CHAVEZ KM.38 CARRETERA CENTRAL FRENTE MZ. M-8</option>';
+            UBICACION_options_str  += '<option value="AV. NUEVA TOLEDO A 350 M. AL NORESTE DE LA INTERSECCIÓN CON LA CALLE COLCA">AV. NUEVA TOLEDO A 350 M. AL NORESTE DE LA INTERSECCIÓN CON LA CALLE COLCA</option>';
+            UBICACION_options_str  += '<option value="AV. PANAMERICANA NORTE, URB. MANUEL COX, ALEDAÑO RESERVORIO SEDAPAL.">AV. PANAMERICANA NORTE, URB. MANUEL COX, ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="AV. PASEO EUCALIPTOS ENTRE BANANOS Y MONTANAR">AV. PASEO EUCALIPTOS ENTRE BANANOS Y MONTANAR</option>';
+            UBICACION_options_str  += '<option value="AV.BERNARD BALAGUER HACIA CLUB BONAVISTA GOLF DE HUAMPANI 7 CDRAS DE AV. PRINCIPAL.">AV.BERNARD BALAGUER HACIA CLUB BONAVISTA GOLF DE HUAMPANI 7 CDRAS DE AV. PRINCIPAL.</option>';
+            UBICACION_options_str  += '<option value="AV.INTEGRACION, ALEDAÑO RESERVORIO SEDAPAL COLINDA CON ASOC. VIIVENDA LOS JARDINES DE CHILLON SECTOR EL TARO.">AV.INTEGRACION, ALEDAÑO RESERVORIO SEDAPAL COLINDA CON ASOC. VIIVENDA LOS JARDINES DE CHILLON SECTOR EL TARO.</option>';
+            UBICACION_options_str  += '<option value="AV.PERUANIDAD FRENTE CAMPO DE MARTE">AV.PERUANIDAD FRENTE CAMPO DE MARTE</option>';
+            UBICACION_options_str  += '<option value="AV.SAN MARTIN MZ. C-22, PARADERO LA ESPERANZA ALEDAÑO RESERVORIO SEDAPAL COLINDANTE ASOC. VIRGEN DEL CARMEN.">AV.SAN MARTIN MZ. C-22, PARADERO LA ESPERANZA ALEDAÑO RESERVORIO SEDAPAL COLINDANTE ASOC. VIRGEN DEL CARMEN.</option>';
+            UBICACION_options_str  += '<option value="AV.TUPAC AMARU, 45 MT. ANTES INTERCEPCION AV. JOSE SANTOS CHOCANO Y TUPAC AMARU.">AV.TUPAC AMARU, 45 MT. ANTES INTERCEPCION AV. JOSE SANTOS CHOCANO Y TUPAC AMARU.</option>';
+            UBICACION_options_str  += '<option value="CA. MEDIDORES 110">CA. MEDIDORES 110</option>';
+            UBICACION_options_str  += '<option value="CALLE 7, ALEDAÑO A INSTITUCION EDUCATIVA COLINDANTE CON ESTADIO HUASCATA.">CALLE 7, ALEDAÑO A INSTITUCION EDUCATIVA COLINDANTE CON ESTADIO HUASCATA.</option>';
+            UBICACION_options_str  += '<option value="CALLE ALEJANDRO MENDOZA, 25 MTS DE RESERVORIO SEDAPAL">CALLE ALEJANDRO MENDOZA, 25 MTS DE RESERVORIO SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="CALLE S MZ. H-10 - LOMAS DE ZAPALLAL.">CALLE S MZ. H-10 - LOMAS DE ZAPALLAL.</option>';
+            UBICACION_options_str  += '<option value="CERCA MUNICIPALIDAD DISTRITAL DE PUNTA NEGRA FRENTE A IGLESIA SAN JOSÉ.">CERCA MUNICIPALIDAD DISTRITAL DE PUNTA NEGRA FRENTE A IGLESIA SAN JOSÉ.</option>';
+            UBICACION_options_str  += '<option value="COLINDANTE CON ZONA ARQUEOLOGICA &apos;EL TANQUE&apos; FRENTE A MALECON DE ANCÓN">COLINDANTE CON ZONA ARQUEOLOGICA &apos;EL TANQUE&apos; FRENTE A MALECON DE ANCÓN</option>';
+            UBICACION_options_str  += '<option value="COMISARIA SARITA COLONIA">COMISARIA SARITA COLONIA</option>';
+            UBICACION_options_str  += '<option value="COMUNIDAD URBANA AUTOGESTIONARIA DE HUAYCAN ZONA Z SECTOR &apos;E&apos; ALEDAÑO RESERVORIO SEDAPAL.">COMUNIDAD URBANA AUTOGESTIONARIA DE HUAYCAN ZONA Z SECTOR &apos;E&apos; ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="CONDOMINIO  LA ALAMEDA DE LA MOLINA">CONDOMINIO  LA ALAMEDA DE LA MOLINA</option>';
+            UBICACION_options_str  += '<option value="ENTRE AV. LAS LOMAS Y MANGOMARCA A 40 MTS. DEL JR.COTOSH,  MANGOMARCA.">ENTRE AV. LAS LOMAS Y MANGOMARCA A 40 MTS. DEL JR.COTOSH,  MANGOMARCA.</option>';
+            UBICACION_options_str  += '<option value="ENTRE JR.LOS OLIVOS Y JR. LA UNION PASANDO CLUB EL BOSQUE 1 MT. DE ESCALERA &apos;CALLE EL TRÉBOL&apos;">ENTRE JR.LOS OLIVOS Y JR. LA UNION PASANDO CLUB EL BOSQUE 1 MT. DE ESCALERA &apos;CALLE EL TRÉBOL&apos;</option>';
+            UBICACION_options_str  += '<option value="ESQUINA NORTE DEL PARQUE JOSÉ GALVEZ.">ESQUINA NORTE DEL PARQUE JOSÉ GALVEZ.</option>';
+            UBICACION_options_str  += '<option value="EX FUNDO MARQUEZ, IEI VIRGEN DEL CARMEN, 600 MTS ANTES DE CRUCAR RIO CHILLON">EX FUNDO MARQUEZ, IEI VIRGEN DEL CARMEN, 600 MTS ANTES DE CRUCAR RIO CHILLON</option>';
+            UBICACION_options_str  += '<option value="FINAL DE CALLE 16 DEL AA.HH. NUEVA ERA.">FINAL DE CALLE 16 DEL AA.HH. NUEVA ERA.</option>';
+            UBICACION_options_str  += '<option value="FORTALEZA REAL FELIPE ENTRE AGUSTIN GAMARRA Y AV.ESTADOS UNIDOS">FORTALEZA REAL FELIPE ENTRE AGUSTIN GAMARRA Y AV.ESTADOS UNIDOS</option>';
+            UBICACION_options_str  += '<option value="FRENTE AL JR.CAHUIDE MZ I1 -03 HA 1 MT. RESERVORIO SEDAPAL.">FRENTE AL JR.CAHUIDE MZ I1 -03 HA 1 MT. RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="FRENTE AV. LOS MATERIALES ENTRE LAS AV.LOS PROFESIONALES Y AV. 200 MILLAS DE VENTANILLA">FRENTE AV. LOS MATERIALES ENTRE LAS AV.LOS PROFESIONALES Y AV. 200 MILLAS DE VENTANILLA</option>';
+            UBICACION_options_str  += '<option value="FRENTE ENTRADA PLAYA LA TIZA LADO ESTE VIA PANAMERICANA SUR.">FRENTE ENTRADA PLAYA LA TIZA LADO ESTE VIA PANAMERICANA SUR.</option>';
+            UBICACION_options_str  += '<option value="HACIENDA PUNCHAUCA A 60 MTS. HACIA LA DERECHA EN DIRECCION NORESTE ANTES DE CRUZAR PUENTE OSOYNIK">HACIENDA PUNCHAUCA A 60 MTS. HACIA LA DERECHA EN DIRECCION NORESTE ANTES DE CRUZAR PUENTE OSOYNIK</option>';
+            UBICACION_options_str  += '<option value="HUAYCAN ZONA R_UCV II AMPLIACIÓN">HUAYCAN ZONA R_UCV II AMPLIACIÓN</option>';
+            UBICACION_options_str  += '<option value="HUAYCAN ZONA X">HUAYCAN ZONA X</option>';
+            UBICACION_options_str  += '<option value="INSTITUCION EDUCATIVA N°5099, A 10 MTS. DEL RESERVORIO SEDAPAL. (CIUDAD DEL DEPORTE)">INSTITUCION EDUCATIVA N°5099, A 10 MTS. DEL RESERVORIO SEDAPAL. (CIUDAD DEL DEPORTE)</option>';
+            UBICACION_options_str  += '<option value="INTERCEPCION AV. MALECON DE MARINA CON AV. JOSE DOMINGO CHOQUEHUANCA A 25 MTS HACIA EL MALECON.">INTERCEPCION AV. MALECON DE MARINA CON AV. JOSE DOMINGO CHOQUEHUANCA A 25 MTS HACIA EL MALECON.</option>';
+            UBICACION_options_str  += '<option value="INTERCEPCION AV.5 AGOSTO CON AV.9 SETIEMBRE.">INTERCEPCION AV.5 AGOSTO CON AV.9 SETIEMBRE.</option>';
+            UBICACION_options_str  += '<option value="INTERCEPCION VIA PANAMERICANA SUR Y AV. LOS HEROES CERCA BLOCK A1 SECTOR A CONJUNTO HABITACIONAL FONAVI">INTERCEPCION VIA PANAMERICANA SUR Y AV. LOS HEROES CERCA BLOCK A1 SECTOR A CONJUNTO HABITACIONAL FONAVI</option>';
+            UBICACION_options_str  += '<option value="JR. JOSÉ BALTA AA.HH. ELIANE KARP">JR. JOSÉ BALTA AA.HH. ELIANE KARP</option>';
+            UBICACION_options_str  += '<option value="JUEGOS DE NIÑOS PRONOEI-COLLIQUE ENTRE JR. JOSE CARLOS MARIATEGUI Y JR.FRANCISCO DE ZELA">JUEGOS DE NIÑOS PRONOEI-COLLIQUE ENTRE JR. JOSE CARLOS MARIATEGUI Y JR.FRANCISCO DE ZELA</option>';
+            UBICACION_options_str  += '<option value="LADO NORESTE DEL ESTADIO MUNICIPAL DE PACHACAMAC AV.SAN MIGUEL S/N (PARTE EXTERNA DEL ESTADIO)">LADO NORESTE DEL ESTADIO MUNICIPAL DE PACHACAMAC AV.SAN MIGUEL S/N (PARTE EXTERNA DEL ESTADIO)</option>';
+            UBICACION_options_str  += '<option value="LOMAS DE MAMACONA S/N COSTADO MZ A-1 CALLE 23">LOMAS DE MAMACONA S/N COSTADO MZ A-1 CALLE 23</option>';
+            UBICACION_options_str  += '<option value="NUEVA VIA PANAMERICANA SUR LADO OESTE PARQUE UBICADO EN A.H. JOSE OLAYA PASANDO 1ER PARADERO PUENTE ARICA">NUEVA VIA PANAMERICANA SUR LADO OESTE PARQUE UBICADO EN A.H. JOSE OLAYA PASANDO 1ER PARADERO PUENTE ARICA</option>';
+            UBICACION_options_str  += '<option value="P.J. AÑO NUEVO, FRENTE AL PASAJE LEONCIO CORONADO, 75MTS. RESERVORIO SEDAPAL">P.J. AÑO NUEVO, FRENTE AL PASAJE LEONCIO CORONADO, 75MTS. RESERVORIO SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="PARCELAS, AREAS PERMANENTES SUB ZONA C ALT. ARCO DE INGRESO AL BALNEARIO DE SANTA ROSA.">PARCELAS, AREAS PERMANENTES SUB ZONA C ALT. ARCO DE INGRESO AL BALNEARIO DE SANTA ROSA.</option>';
+            UBICACION_options_str  += '<option value="PARQUE 04 CRUCE ENTRE CALLE 17 Y CALLE 18 DE URB. SANTO DOMINGO ALEDAÑO RESERVORIO SEDAPAL.">PARQUE 04 CRUCE ENTRE CALLE 17 Y CALLE 18 DE URB. SANTO DOMINGO ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="PARQUE CHALAN, ASOC.LOS COMPRADORES, ESQUINA DE PARQUE QUE DA CON CALLE 21.">PARQUE CHALAN, ASOC.LOS COMPRADORES, ESQUINA DE PARQUE QUE DA CON CALLE 21.</option>';
+            UBICACION_options_str  += '<option value="PARQUE FRANCO PERUANO">PARQUE FRANCO PERUANO</option>';
+            UBICACION_options_str  += '<option value="PARQUE GRAN  MARISCAL RAMON CASTILLA (MITAD DEL PARQUE)">PARQUE GRAN  MARISCAL RAMON CASTILLA (MITAD DEL PARQUE)</option>';
+            UBICACION_options_str  += '<option value="PARQUE JACARANDA.">PARQUE JACARANDA.</option>';
+            UBICACION_options_str  += '<option value="PARQUE JULIO C.TELLO FRENTE IGLESIA LURIN.">PARQUE JULIO C.TELLO FRENTE IGLESIA LURIN.</option>';
+            UBICACION_options_str  += '<option value="PARQUE LA FAMILIA, AV. PARQUE NORTE CDRA.22 Y CALLE 23 CDRA.03.">PARQUE LA FAMILIA, AV. PARQUE NORTE CDRA.22 Y CALLE 23 CDRA.03.</option>';
+            UBICACION_options_str  += '<option value="PARQUE LEONCIO PRADO">PARQUE LEONCIO PRADO</option>';
+            UBICACION_options_str  += '<option value="PARQUE MARIANO, URB.7 DE JUNIO COLINDANTE CON LA AVENIDA 3.">PARQUE MARIANO, URB.7 DE JUNIO COLINDANTE CON LA AVENIDA 3.</option>';
+            UBICACION_options_str  += '<option value="PARQUE MARINO MERCANTE ENTRE GUARDIA CHALACA Y JR.PISCO">PARQUE MARINO MERCANTE ENTRE GUARDIA CHALACA Y JR.PISCO</option>';
+            UBICACION_options_str  += '<option value="PARQUE MARISCAL CASTILLA, ESQ. CALLE 25 Y 26.">PARQUE MARISCAL CASTILLA, ESQ. CALLE 25 Y 26.</option>';
+            UBICACION_options_str  += '<option value="PARQUE MIGUEL GRAU">PARQUE MIGUEL GRAU</option>';
+            UBICACION_options_str  += '<option value="PARQUE PAULO VI ENTRE JR.CUCARDAS Y CAUCHOS.">PARQUE PAULO VI ENTRE JR.CUCARDAS Y CAUCHOS.</option>';
+            UBICACION_options_str  += '<option value="PARQUE PERÚ-COSTA RICA, UBIC. ENTRE CALLE EL PRADO Y LA HUACA ESPALDA USMP.">PARQUE PERÚ-COSTA RICA, UBIC. ENTRE CALLE EL PRADO Y LA HUACA ESPALDA USMP.</option>';
+            UBICACION_options_str  += '<option value="PARQUE PRIMAVERA ENTRE VIOLETAS Y 23 DE SETIEMBRE.">PARQUE PRIMAVERA ENTRE VIOLETAS Y 23 DE SETIEMBRE.</option>';
+            UBICACION_options_str  += '<option value="PARQUE QUIÑONES, FRENTE CALLE SAN BARTOLO ESQ. NOROESTE DEL PARQUE.">PARQUE QUIÑONES, FRENTE CALLE SAN BARTOLO ESQ. NOROESTE DEL PARQUE.</option>';
+            UBICACION_options_str  += '<option value="PARQUE SAN JUAN  ENTRE AV.LOS CEDROS Y AV.LOS CLAVELES ESQUINA PARQUE SAN JUAN.">PARQUE SAN JUAN  ENTRE AV.LOS CEDROS Y AV.LOS CLAVELES ESQUINA PARQUE SAN JUAN.</option>';
+            UBICACION_options_str  += '<option value="PARQUE SANTA ROSA COLINDANTE AV. HUAYCAN.">PARQUE SANTA ROSA COLINDANTE AV. HUAYCAN.</option>';
+            UBICACION_options_str  += '<option value="PARQUE SANTA ROSA URB. LUCYANA I ETAPA KM.18 DE LA AV. TUPAC AMARU A 5 MTS ESQUINA SUROESTE DEL PARQUE.">PARQUE SANTA ROSA URB. LUCYANA I ETAPA KM.18 DE LA AV. TUPAC AMARU A 5 MTS ESQUINA SUROESTE DEL PARQUE.</option>';
+            UBICACION_options_str  += '<option value="PARQUE SECTOR C2, ENTRE CALLES LA ESMERALDA Y BAHIA AZUL ALT.DISTRIBUIDORA FERRETERA &apos;C&M&apos; AV. 225.">PARQUE SECTOR C2, ENTRE CALLES LA ESMERALDA Y BAHIA AZUL ALT.DISTRIBUIDORA FERRETERA &apos;C&M&apos; AV. 225.</option>';
+            UBICACION_options_str  += '<option value="PARTE ALTA AA.HH. CANTO CHICO, JR.LORETO, ALEDAÑO A RESERVORIO SEDAPAL.">PARTE ALTA AA.HH. CANTO CHICO, JR.LORETO, ALEDAÑO A RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="PASANDO KM.22 AV. TUPAC AMARU, FRENTE MZ.01 LOTE 6 PROGRAMA VIVIENDA LOS PARQUES DEL REY.">PASANDO KM.22 AV. TUPAC AMARU, FRENTE MZ.01 LOTE 6 PROGRAMA VIVIENDA LOS PARQUES DEL REY.</option>';
+            UBICACION_options_str  += '<option value="SAN ANTONIO DE JICAMARCA ALEDAÑO A LOZA DEPORTIVA RINCONADA VILLA SOL.">SAN ANTONIO DE JICAMARCA ALEDAÑO A LOZA DEPORTIVA RINCONADA VILLA SOL.</option>';
+            UBICACION_options_str  += '<option value="UBICADO EN">UBICADO EN</option>';
+            UBICACION_options_str  += '<option value="URB. CANTO BELLO, INTERSECCION ENTRE AV. LOS EUCLIPTOS Y EL JR. LOS ALGARROBOS ALEDAÑO A LOZA DEPORTIVA.">URB. CANTO BELLO, INTERSECCION ENTRE AV. LOS EUCLIPTOS Y EL JR. LOS ALGARROBOS ALEDAÑO A LOZA DEPORTIVA.</option>';
+            UBICACION_options_str  += '<option value="URB. EL MIRADOR DEL NUEVO PACHACUTEC-TECHO PROPIO A 50 MTS. PUERTA N°03">URB. EL MIRADOR DEL NUEVO PACHACUTEC-TECHO PROPIO A 50 MTS. PUERTA N°03</option>';
+            UBICACION_options_str  += '<option value="URB. EL PINAR A 60 MTS. EB DIRECCION NOROESTE A PARTIR DEL RESERVORIO SEDAPAL.">URB. EL PINAR A 60 MTS. EB DIRECCION NOROESTE A PARTIR DEL RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. EL RETABLO ENTRE JR. AVIACION Y QUIÑONES">URB. EL RETABLO ENTRE JR. AVIACION Y QUIÑONES</option>';
+            UBICACION_options_str  += '<option value="URB. GOLF DE HUAMPANI I ETAPA MZ. T-15 HA 5 MTS. RESERVORIO SEDAPAL.">URB. GOLF DE HUAMPANI I ETAPA MZ. T-15 HA 5 MTS. RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. HUERTOS DE MANCHAY, AV. MIGUEL GRAU MZ. K12 LOTE 11 ALEDAÑO RESERVORIO SEDAPAL.">URB. HUERTOS DE MANCHAY, AV. MIGUEL GRAU MZ. K12 LOTE 11 ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. JARDINES DEL NARANJAL 1ER ETAPA, EN PARQUE UBIC. ENTRE AV. LOS ALISOS Y AV.&apos;C&apos; LADO OESTE DEL PARQUE.">URB. JARDINES DEL NARANJAL 1ER ETAPA, EN PARQUE UBIC. ENTRE AV. LOS ALISOS Y AV.&apos;C&apos; LADO OESTE DEL PARQUE.</option>';
+            UBICACION_options_str  += '<option value="URB. LA CAMPIÑA AV. EL SOL CDRA 10 K-11">URB. LA CAMPIÑA AV. EL SOL CDRA 10 K-11</option>';
+            UBICACION_options_str  += '<option value="URB. LAS LAGUNAS, AV.LA MOLINA ALT. AV. RINCONADA DEL LAGO, ALEDAÑO RESERVORIO SEDAPAL.">URB. LAS LAGUNAS, AV.LA MOLINA ALT. AV. RINCONADA DEL LAGO, ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. LAS LOMAS DE LA PLANICIE III ETAPA">URB. LAS LOMAS DE LA PLANICIE III ETAPA</option>';
+            UBICACION_options_str  += '<option value="URB. PANDO III ETAPA  ENTRE SANTA MARIANA Y SANTA TEODOSIA">URB. PANDO III ETAPA  ENTRE SANTA MARIANA Y SANTA TEODOSIA</option>';
+            UBICACION_options_str  += '<option value="URB. SAN ANTONIO ALEDAÑO AL PARQUE Y POZO DE SEDAPAL">URB. SAN ANTONIO ALEDAÑO AL PARQUE Y POZO DE SEDAPAL</option>';
+            UBICACION_options_str  += '<option value="URB. SAN PEDRO 1ERA ETAPA FRENTE A CALLE 10 MZ.C2 LOTE 27 HA 10 MTS DEL RESERVORIO SEDAPAL.">URB. SAN PEDRO 1ERA ETAPA FRENTE A CALLE 10 MZ.C2 LOTE 27 HA 10 MTS DEL RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. SANTA MARIA 1ERA ETAPA, 20 MTS RESERVORIO SEDAPAL.">URB. SANTA MARIA 1ERA ETAPA, 20 MTS RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB. VILLA JARDIN, JR. LOS JAZMINES FRENTE Z.">URB. VILLA JARDIN, JR. LOS JAZMINES FRENTE Z.</option>';
+            UBICACION_options_str  += '<option value="URB. ZARATE INTERCEPCION AV. PACHACUTEC Y AV. EL SOL.">URB. ZARATE INTERCEPCION AV. PACHACUTEC Y AV. EL SOL.</option>';
+            UBICACION_options_str  += '<option value="URB.LAS FLORES DE LA MOLINA ALT. DE LA CDRA.20 DE LA AV. LA MOLINA ALEDAÑO RESERVORIO SEDAPAL.">URB.LAS FLORES DE LA MOLINA ALT. DE LA CDRA.20 DE LA AV. LA MOLINA ALEDAÑO RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="URB.LAS TERRAZAS DE CARAPONGUILLO, A 30 MTS. RESERVORIO SEDAPAL.">URB.LAS TERRAZAS DE CARAPONGUILLO, A 30 MTS. RESERVORIO SEDAPAL.</option>';
+            UBICACION_options_str  += '<option value="VALLE DE LURIN SECTOR PICA PIEDARA FUNDO POZO SANTO">VALLE DE LURIN SECTOR PICA PIEDARA FUNDO POZO SANTO</option>';
+            UBICACION_options_str  += '<option value="VILLA EL SALVADOR Q-2 GRUPO 16,SECTOR 2 ALTURA DE LA CUADRA 3 AV.SOL">VILLA EL SALVADOR Q-2 GRUPO 16,SECTOR 2 ALTURA DE LA CUADRA 3 AV.SOL</option>';
+            sel_UBICACION.innerHTML = UBICACION_options_str;
+            div_UBICACION.appendChild(sel_UBICACION);
+            var lab_UBICACION = document.createElement('div');
+            lab_UBICACION.innerHTML = 'UBICACION';
+            lab_UBICACION.className = 'filterlabel';
+            div_UBICACION.appendChild(lab_UBICACION);
+            var reset_UBICACION = document.createElement('div');
+            reset_UBICACION.innerHTML = 'clear filter';
+            reset_UBICACION.className = 'filterlabel';
+            reset_UBICACION.onclick = function() {
+                var options = document.getElementById("sel_UBICACION").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_UBICACION.appendChild(reset_UBICACION);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_ORDEN = document.createElement('div');
+            div_ORDEN.id = "div_ORDEN";
+            div_ORDEN.className= "filterselect";
+            document.getElementById("menu").appendChild(div_ORDEN);
+            sel_ORDEN = document.createElement('select');
+            sel_ORDEN.multiple = true;
+            sel_ORDEN.size = 3;
+            sel_ORDEN.id = "sel_ORDEN";
+            var ORDEN_options_str = "<option value='' unselected></option>";
+            sel_ORDEN.onchange = function(){filterFunc()};
+            ORDEN_options_str  += '<option value="B">B</option>';
+            ORDEN_options_str  += '<option value="C">C</option>';
+            ORDEN_options_str  += '<option value="ERP -">ERP -</option>';
+            sel_ORDEN.innerHTML = ORDEN_options_str;
+            div_ORDEN.appendChild(sel_ORDEN);
+            var lab_ORDEN = document.createElement('div');
+            lab_ORDEN.innerHTML = 'ORDEN';
+            lab_ORDEN.className = 'filterlabel';
+            div_ORDEN.appendChild(lab_ORDEN);
+            var reset_ORDEN = document.createElement('div');
+            reset_ORDEN.innerHTML = 'clear filter';
+            reset_ORDEN.className = 'filterlabel';
+            reset_ORDEN.onclick = function() {
+                var options = document.getElementById("sel_ORDEN").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_ORDEN.appendChild(reset_ORDEN);
+        resetLabels([layer_BMIGN_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_BMIGN_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_BMIGN_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_BMIGN_3]);
+        });
+        </script>
+    </body>
+</html>
